@@ -1,0 +1,24 @@
+1. Подсчитайте средний возраст пользователей в таблице users.
+
+SELECT
+	ROUND (AVG(
+	(YEAR(CURRENT_DATE) - YEAR(birthday_at)) -                             
+	(DATE_FORMAT(CURRENT_DATE, '%m%d') < DATE_FORMAT(birthday_at, '%m%d'))
+	), 0) as avgyear
+	FROM users;
+
+
+2. Подсчитайте количество дней рождения, которые приходятся на каждый из дней недели. Следует учесть, что необходимы дни недели текущего года, а не года рождения.
+
+SELECT
+    birthday_at,
+	STR_TO_DATE(concat(year(CURRENT_DATE), "-", month(birthday_at), "-", day(birthday_at)), '%Y-%m-%d') as DATEF,
+	DAYNAME(STR_TO_DATE(concat(year(CURRENT_DATE), "-", month(birthday_at), "-", day(birthday_at)), '%Y-%m-%d')) AS DAYNAME
+	from users ;
+
+
+3. (по желанию) Подсчитайте произведение чисел в столбце таблицы.
+
+select round(exp(sum(ln(value1)))) product_of_numbers from valuetab;
+
+
